@@ -13,15 +13,15 @@ export class UserRepository {
     this.collection = this.db.collection('users');
   }
 
-  /* async getAll(): Promise<Task[]> {
+  async getAll(): Promise<User[]> {
     try {
       const result = await this.collection.find({}).toArray();
-      return result as Task[];
+      return result as User[];
     } catch (e) {
       throw new InternalServerErrorException('Server Error');
     }
   }
- */
+
   async getById(id: string): Promise<User> {
     try {
       const objId = new ObjectId(id);

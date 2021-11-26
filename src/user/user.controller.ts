@@ -10,9 +10,15 @@ export class UserController {
   getUserById(@Param('id') id: string) {
     return this.userService.getUserById(id);
   }
+
   @Get('username/:username')
   getUserByUsername(@Param('username') username: string) {
     return this.userService.getUserByUsername(username);
+  }
+
+  @Get()
+  getAllUsers(@Param('username') username: string) {
+    return this.userService.getAllUsers();
   }
 
   @Post()

@@ -9,10 +9,16 @@ export class UserService {
   async createUser(createUserDto: CreateUserDto) {
     return this.userRepository.create(createUserDto);
   }
+
   async getUserByUsername(username: string) {
     return this.userRepository.getByUsername(username);
   }
+
   async getUserById(id: string) {
     return this.userRepository.getById(id);
+  }
+  
+  async getAllUsers() {
+    return this.userRepository.getAll();
   }
 }
