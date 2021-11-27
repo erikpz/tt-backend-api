@@ -26,7 +26,8 @@ export class UserRepository {
     try {
       const objId = new ObjectId(id);
       const result = await this.collection.findOne({ _id: objId });
-      return result as User;
+      console.log(result)
+      return result as any;
     } catch (e) {
       throw new InternalServerErrorException();
     }
