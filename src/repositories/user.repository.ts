@@ -2,8 +2,8 @@ import * as mongo from 'mongodb';
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { InjectDb } from 'nest-mongodb';
 import { ObjectId } from 'mongodb';
-import { User } from 'interfaces/user.interface';
-import { CreateUserDto } from 'dto/create-user.dto';
+import { User } from 'src/interfaces/user.interface';
+import { CreateUserDto } from 'src/dto/create-user.dto';
 
 @Injectable()
 export class UserRepository {

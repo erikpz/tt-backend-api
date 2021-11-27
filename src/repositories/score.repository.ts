@@ -1,7 +1,7 @@
 import * as mongo from 'mongodb';
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { InjectDb } from 'nest-mongodb';
-import { Score } from 'interfaces/score.interface';
+import { Score } from 'src/interfaces/score.interface';
 
 @Injectable()
 export class ScoreRepository {

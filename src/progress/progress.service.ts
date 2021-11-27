@@ -3,7 +3,7 @@ import {
   InternalServerErrorException,
   NotFoundException,
 } from '@nestjs/common';
-import { ProgressRepository } from 'repositories/progress.repository';
+import { ProgressRepository } from 'src/repositories/progress.repository';
 
 @Injectable()
 export class ProgressService {

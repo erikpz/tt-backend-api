@@ -3,7 +3,7 @@ import {
   InternalServerErrorException,
   NotFoundException,
 } from '@nestjs/common';
-import { ScoreRepository } from 'repositories/score.repository';
+import { ScoreRepository } from 'src/repositories/score.repository';
 
 @Injectable()
 export class ScoreService {

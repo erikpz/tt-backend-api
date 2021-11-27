@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
-import { CreateScoreDto } from 'dto/create-score.dto';
+import { CreateScoreDto } from 'src/dto/create-score.dto';
 import { ScoreService } from './score.service';
 
 @Controller('score')

@@ -3,8 +3,8 @@ import {
   InternalServerErrorException,
   NotFoundException,
 } from '@nestjs/common';
-import { CreateUserDto } from 'dto/create-user.dto';
-import { UserRepository } from 'repositories/user.repository';
+import { CreateUserDto } from 'src/dto/create-user.dto';
+import { UserRepository } from 'src/repositories/user.repository';
 import { ProgressService } from 'src/progress/progress.service';
 
 @Injectable()

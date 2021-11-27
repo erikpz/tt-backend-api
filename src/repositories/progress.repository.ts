@@ -1,7 +1,7 @@
 import * as mongo from 'mongodb';
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { InjectDb } from 'nest-mongodb';
-import { Progress } from 'interfaces/progress.interface';
+import { Progress } from 'src/interfaces/progress.interface';
 
 @Injectable()
 export class ProgressRepository {
