@@ -2,7 +2,7 @@ import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { CreateUserDto } from 'dto/create-user.dto';
 import { UserService } from './user.service';
 
-@Controller('users')
+@Controller('user')
 export class UserController {
   constructor(private userService: UserService) {}
 
@@ -17,7 +17,7 @@ export class UserController {
   }
 
   @Get()
-  getAllUsers(@Param('username') username: string) {
+  getAllUsers() {
     return this.userService.getAllUsers();
   }
 

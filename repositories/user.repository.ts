@@ -18,7 +18,7 @@ export class UserRepository {
       const result = await this.collection.find({}).toArray();
       return result as User[];
     } catch (e) {
-      throw new InternalServerErrorException('Server Error');
+      throw new InternalServerErrorException();
     }
   }
 
@@ -26,18 +26,18 @@ export class UserRepository {
     try {
       const objId = new ObjectId(id);
       const result = await this.collection.findOne({ _id: objId });
-      return { ...result } as User;
+      return result as User;
     } catch (e) {
-      throw new InternalServerErrorException('Server Error');
+      throw new InternalServerErrorException();
     }
   }
 
   async getByUsername(username: string): Promise<User> {
     try {
       const result = await this.collection.findOne({ username });
-      return { ...result } as User;
+      return result as User;
     } catch (e) {
-      throw new InternalServerErrorException('Server Error');
+      throw new InternalServerErrorException();
     }
   }
 
@@ -45,13 +45,12 @@ export class UserRepository {
     try {
       const result = await this.collection.insertOne(task);
       if (!result.acknowledged) {
-        throw new InternalServerErrorException('Server Error');
+        return null;
       }
       let newTask = { _id: result.insertedId, ...task };
-
       return newTask;
     } catch (e) {
-      throw new InternalServerErrorException('Server Error');
+      throw new InternalServerErrorException();
     }
   }
 }
