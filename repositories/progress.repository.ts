@@ -40,6 +40,7 @@ export class ProgressRepository {
       const result = await this.collection.findOneAndUpdate(
         { userId },
         { $set: { level: newLevel } },
+        { returnDocument: 'after' },
       );
       return result.value;
     } catch (e) {
