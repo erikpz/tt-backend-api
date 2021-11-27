@@ -1,7 +1,6 @@
 import * as mongo from 'mongodb';
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { InjectDb } from 'nest-mongodb';
-import { ObjectId } from 'mongodb';
 import { Progress } from 'interfaces/progress.interface';
 
 @Injectable()
@@ -40,15 +39,11 @@ export class ProgressRepository {
     try {
       const result = await this.collection.findOneAndUpdate(
         { userId },
-        { level: newLevel },
+        { $set: { level: newLevel } },
       );
-      /* if (!result.acknowledged) {
-        throw new InternalServerErrorException('Server Error');
-      } */
-      console.log(result);
-      /*  return { _id: result.insertedId, level: 0, userId }; */
-      return 'Modificadoooooo';
+      return result.value;
     } catch (e) {
+      console.log(e);
       throw new InternalServerErrorException();
     }
   }

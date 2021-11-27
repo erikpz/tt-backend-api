@@ -22,4 +22,13 @@ export class ProgressService {
     if (!progress) throw new NotFoundException();
     return progress;
   }
+
+  async updateProgressByUserId(userId: string, newLevel: number) {
+    const newProgress = await this.progressRepositoy.updateProgressByUserId(
+      userId,
+      newLevel,
+    );
+    if (!newProgress) throw new NotFoundException();
+    return newProgress;
+  }
 }
