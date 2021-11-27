@@ -16,7 +16,7 @@ export class UserService {
 
   async createUser(createUserDto: CreateUserDto) {
     const userCreated = await this.userRepository.create(createUserDto);
-    if (!userCreated) return new InternalServerErrorException();
+    if (!userCreated) throw new InternalServerErrorException();
     await this.progressService.createProgressByUserId(
       userCreated._id.toString(),
     );

@@ -1,4 +1,8 @@
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import {
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { ProgressRepository } from 'repositories/progress.repository';
 
 @Injectable()
@@ -11,5 +15,11 @@ export class ProgressService {
       return new InternalServerErrorException();
     }
     return result;
+  }
+
+  async getProgressByUserId(userId: string) {
+    const progress = await this.progressRepositoy.getProgressByUserId(userId);
+    if (!progress) throw new NotFoundException();
+    return progress;
   }
 }

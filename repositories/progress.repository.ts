@@ -1,5 +1,5 @@
 import * as mongo from 'mongodb';
-import { Injectable } from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { InjectDb } from 'nest-mongodb';
 import { ObjectId } from 'mongodb';
 import { Progress } from 'interfaces/progress.interface';
@@ -17,7 +17,7 @@ export class ProgressRepository {
       const result = await this.collection.findOne({ userId });
       return result as Progress;
     } catch (e) {
-      return null
+      throw new InternalServerErrorException();
     }
   }
 
@@ -28,13 +28,14 @@ export class ProgressRepository {
         userId,
       });
       if (!result.acknowledged) {
-        return null
+        return null;
       }
       return { _id: result.insertedId, level: 0, userId };
     } catch (e) {
-      return null
+      throw new InternalServerErrorException();
     }
   }
+
   async updateProgressByUserId(userId: string, newLevel: number) {
     try {
       const result = await this.collection.findOneAndUpdate(
@@ -48,7 +49,7 @@ export class ProgressRepository {
       /*  return { _id: result.insertedId, level: 0, userId }; */
       return 'Modificadoooooo';
     } catch (e) {
-      return null
+      throw new InternalServerErrorException();
     }
   }
 }
