@@ -1,4 +1,5 @@
 import { Body, Controller, Get, Param, Put } from '@nestjs/common';
+import { UpdateProgressDto } from 'dto/update-progress.dto';
 import { ProgressService } from './progress.service';
 
 @Controller('progress')
@@ -11,8 +12,11 @@ export class ProgressController {
   @Put(':userId')
   updateProgressByUserId(
     @Param('userId') userId: string,
-    @Body() body: { newLevel: number },
+    @Body() updateProgressDto: UpdateProgressDto,
   ) {
-    return this.progressService.updateProgressByUserId(userId, body.newLevel);
+    return this.progressService.updateProgressByUserId(
+      userId,
+      updateProgressDto.newLevel,
+    );
   }
 }

@@ -5,6 +5,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
 import { ProgressModule } from './progress/progress.module';
+import { ScoreModule } from './score/score.module';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { ProgressModule } from './progress/progress.module';
     MongoModule.forRoot(process.env.MONGODB_URI, process.env.MONGODB_NAME),
     UserModule,
     ProgressModule,
+    ScoreModule,
   ],
   controllers: [AppController],
   providers: [AppService],

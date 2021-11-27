@@ -41,13 +41,13 @@ export class UserRepository {
     }
   }
 
-  async create(task: CreateUserDto): Promise<User> {
+  async create(user: CreateUserDto): Promise<User> {
     try {
-      const result = await this.collection.insertOne(task);
+      const result = await this.collection.insertOne(user);
       if (!result.acknowledged) {
         return null;
       }
-      let newTask = { _id: result.insertedId, ...task };
+      let newTask = { _id: result.insertedId, ...user };
       return newTask;
     } catch (e) {
       throw new InternalServerErrorException();
