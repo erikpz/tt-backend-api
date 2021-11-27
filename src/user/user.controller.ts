@@ -6,9 +6,9 @@ import { UserService } from './user.service';
 export class UserController {
   constructor(private userService: UserService) {}
 
-  @Get(':id')
-  getUserById(@Param('id') id: string) {
-    return this.userService.getUserById(id);
+  @Get(':userId')
+  getUserById(@Param('userId') userId: string) {
+    return this.userService.getUserById(userId);
   }
 
   @Get('username/:username')
