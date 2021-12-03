@@ -1,10 +1,14 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { CreateScoreDto } from 'src/dto/create-score.dto';
 import { ScoreService } from './score.service';
 
 @Controller('score')
 export class ScoreController {
   constructor(private scoreService: ScoreService) {}
+  @Get('best-scores')
+  getBestScores(@Query() query) {
+    return this.scoreService.getBestScores(query.amount);
+  }
   @Get(':userId')
   getScoresByUserId(@Param('userId') userId: string) {
     return this.scoreService.getScoresByUserId(userId);

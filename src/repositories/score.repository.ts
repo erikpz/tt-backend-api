@@ -14,7 +14,18 @@ export class ScoreRepository {
   async getScoresByUserId(userId: string): Promise<Score[]> {
     try {
       const result = await this.collection
-        .find({ userId }, { limit: 5 })
+        .find({ userId }, { sort: { value: -1 } })
+        .toArray();
+      return result as Score[];
+    } catch (e) {
+      throw new InternalServerErrorException();
+    }
+  }
+
+  async getBestScores(amount: number): Promise<Score[]> {
+    try {
+      const result = await this.collection
+        .find({}, { limit: amount, sort: { score: -1 } })
         .toArray();
       return result as Score[];
     } catch (e) {
