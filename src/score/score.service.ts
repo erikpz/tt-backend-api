@@ -24,7 +24,7 @@ export class ScoreService {
     return scores;
   }
 
-  async getBestScores(amount: number = 3) {
+  async getBestScores(amount: number) {
     const scores = await this.scoreRepository.getBestScores(amount);
     if (!scores) throw new NotFoundException();
     return scores;

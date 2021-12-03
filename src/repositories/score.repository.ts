@@ -29,6 +29,7 @@ export class ScoreRepository {
         .toArray();
       return result as Score[];
     } catch (e) {
+      console.log(e);
       throw new InternalServerErrorException();
     }
   }

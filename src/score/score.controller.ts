@@ -7,7 +7,7 @@ export class ScoreController {
   constructor(private scoreService: ScoreService) {}
   @Get('best-scores')
   getBestScores(@Query() query) {
-    return this.scoreService.getBestScores(query.amount);
+    return this.scoreService.getBestScores(query.amount ? +query.amount : 3);
   }
   @Get(':userId')
   getScoresByUserId(@Param('userId') userId: string) {
