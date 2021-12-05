@@ -11,6 +11,17 @@ export class ScoreRepository {
     this.collection = this.db.collection('score');
   }
 
+  async getBestScores(level: number): Promise<Score[]> {
+    try {
+      const result = await this.collection
+        .find(level ? { level } : undefined, { sort: { score: -1 } })
+        .toArray();
+      return result as Score[];
+    } catch (e) {
+      throw new InternalServerErrorException();
+    }
+  }
+
   async getScoresByUserId(userId: string): Promise<Score[]> {
     try {
       const result = await this.collection
@@ -22,29 +33,19 @@ export class ScoreRepository {
     }
   }
 
-  async getBestScores(amount: number): Promise<Score[]> {
-    try {
-      const result = await this.collection
-        .find({}, { limit: amount, sort: { score: -1 } })
-        .toArray();
-      return result as Score[];
-    } catch (e) {
-      throw new InternalServerErrorException();
-    }
-  }
-
-  async createScoreByUserId(userId: string, score: number) {
+  async createScoreByUserId(userId: string, score: number, level: number) {
     try {
       const creationDate = new Date();
       const result = await this.collection.insertOne({
         userId,
         score,
+        level,
         creationDate,
       });
       if (!result.acknowledged) {
         return null;
       }
-      return { _id: result.insertedId, score, userId, creationDate };
+      return { _id: result.insertedId, score, userId, level, creationDate };
     } catch (e) {
       throw new InternalServerErrorException();
     }

@@ -6,8 +6,8 @@ import { ScoreService } from './score.service';
 export class ScoreController {
   constructor(private scoreService: ScoreService) {}
   @Get('best-scores')
-  getBestScores(@Query() query) {
-    return this.scoreService.getBestScores(query.amount ? +query.amount : 3);
+  getBestScores(@Query('level') level: number) {
+    return this.scoreService.getBestScores(+level !== NaN ? +level : undefined);
   }
   @Get(':userId')
   getScoresByUserId(@Param('userId') userId: string) {
@@ -18,6 +18,6 @@ export class ScoreController {
     @Param('userId') userId: string,
     @Body() createScoreDto: CreateScoreDto,
   ) {
-    return this.scoreService.createScoreByUserId(userId, createScoreDto.score);
+    return this.scoreService.createScoreByUserId(userId, createScoreDto);
   }
 }

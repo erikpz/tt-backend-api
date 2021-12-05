@@ -3,6 +3,7 @@ import {
   InternalServerErrorException,
   NotFoundException,
 } from '@nestjs/common';
+import { CreateScoreDto } from 'src/dto/create-score.dto';
 import { Score } from 'src/interfaces/score.interface';
 import { ScoreRepository } from 'src/repositories/score.repository';
 import { UserService } from 'src/user/user.service';
@@ -14,23 +15,8 @@ export class ScoreService {
     private userService: UserService,
   ) {}
 
-  async createScoreByUserId(userId: string, score: number = 0) {
-    const scoreCreated = await this.scoreRepository.createScoreByUserId(
-      userId,
-      score,
-    );
-    if (!scoreCreated) throw new InternalServerErrorException();
-    return scoreCreated;
-  }
-
-  async getScoresByUserId(userId: string) {
-    const scores = await this.scoreRepository.getScoresByUserId(userId);
-    if (!scores) throw new NotFoundException();
-    return scores;
-  }
-
-  async getBestScores(amount: number) {
-    const scores = await this.scoreRepository.getBestScores(amount);
+  async getBestScores(level: number) {
+    const scores = await this.scoreRepository.getBestScores(level);
     if (!scores) throw new NotFoundException();
     const userIdsFromScores = scores.map((score: Score) => score.userId);
     const usersPromises = userIdsFromScores.map((userId: string) =>
@@ -49,5 +35,21 @@ export class ScoreService {
     result = new Map(result);
     result = [...result.values()];
     return result;
+  }
+
+  async getScoresByUserId(userId: string) {
+    const scores = await this.scoreRepository.getScoresByUserId(userId);
+    if (!scores) throw new NotFoundException();
+    return scores;
+  }
+  
+  async createScoreByUserId(userId: string, createScoreDto: CreateScoreDto) {
+    const scoreCreated = await this.scoreRepository.createScoreByUserId(
+      userId,
+      +createScoreDto.score,
+      +createScoreDto.level,
+    );
+    if (!scoreCreated) throw new InternalServerErrorException();
+    return scoreCreated;
   }
 }
