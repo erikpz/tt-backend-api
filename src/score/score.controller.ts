@@ -10,8 +10,9 @@ export class ScoreController {
     return this.scoreService.getBestScores(+level !== NaN ? +level : undefined);
   }
   @Get(':userId')
-  getScoresByUserId(@Param('userId') userId: string) {
-    return this.scoreService.getScoresByUserId(userId);
+  getScoresByUserId(@Param('userId') userId: string, @Query("level") level: number) {
+    level = +level !== NaN ? +level : undefined
+    return this.scoreService.getScoresByUserId(userId, level);
   }
   @Post(':userId')
   createScoreByUserId(

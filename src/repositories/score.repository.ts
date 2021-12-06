@@ -22,10 +22,10 @@ export class ScoreRepository {
     }
   }
 
-  async getScoresByUserId(userId: string): Promise<Score[]> {
+  async getScoresByUserId(userId: string, level: number): Promise<Score[]> {
     try {
       const result = await this.collection
-        .find({ userId }, { sort: { value: -1 } })
+        .find(level ? { userId, level } : { userId }, { sort: { value: -1 } })
         .toArray();
       return result as Score[];
     } catch (e) {

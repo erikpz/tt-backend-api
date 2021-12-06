@@ -37,12 +37,12 @@ export class ScoreService {
     return result;
   }
 
-  async getScoresByUserId(userId: string) {
-    const scores = await this.scoreRepository.getScoresByUserId(userId);
+  async getScoresByUserId(userId: string, level: number) {
+    const scores = await this.scoreRepository.getScoresByUserId(userId, level);
     if (!scores) throw new NotFoundException();
     return scores;
   }
-  
+
   async createScoreByUserId(userId: string, createScoreDto: CreateScoreDto) {
     const scoreCreated = await this.scoreRepository.createScoreByUserId(
       userId,
