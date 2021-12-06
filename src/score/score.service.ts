@@ -18,6 +18,7 @@ export class ScoreService {
   async getBestScores(level: number) {
     const scores = await this.scoreRepository.getBestScores(level);
     if (!scores) throw new NotFoundException();
+    /* 
     const userIdsFromScores = scores.map((score: Score) => score.userId);
     const usersPromises = userIdsFromScores.map((userId: string) =>
       this.userService.getUserById(userId),
@@ -34,6 +35,20 @@ export class ScoreService {
     result = result.map((r: any) => [JSON.stringify(r), r]);
     result = new Map(result);
     result = [...result.values()];
+    return result; */
+    const scorePromises = scores.map((score: any) =>
+      this.getScoresByUserId(score._id, level),
+    );
+    const scoreResults = await Promise.all(scorePromises);
+    const uniqueScores = scoreResults.map((r: any) => r[0]);
+    const usersPromises = uniqueScores.map((x: any) =>
+      this.userService.getUserById(x.userId),
+    );
+    const users = await Promise.all(usersPromises);
+    const result = uniqueScores.map((score: any, i: number) => ({
+      ...score,
+      username: users[i].username,
+    }));
     return result;
   }
 

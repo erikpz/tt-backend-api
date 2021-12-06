@@ -11,12 +11,17 @@ export class ScoreRepository {
     this.collection = this.db.collection('score');
   }
 
-  async getBestScores(level: number): Promise<Score[]> {
+  async getBestScores(level: number): Promise<any> {
     try {
-      const result = await this.collection
+      /*   const result = await this.collection
         .find(level ? { level } : undefined, { sort: { score: -1 } })
-        .toArray();
-      return result as Score[];
+        .toArray(); */
+      const result = await this.collection.aggregate([
+        { $match: { level } },
+        { $group: { _id: '$userId', score: { $max: '$score' } } },
+        { $sort: { score: -1 } },
+      ]);
+      return result.toArray() as any;
     } catch (e) {
       throw new InternalServerErrorException();
     }
@@ -25,7 +30,7 @@ export class ScoreRepository {
   async getScoresByUserId(userId: string, level: number): Promise<Score[]> {
     try {
       const result = await this.collection
-        .find(level ? { userId, level } : { userId }, { sort: { value: -1 } })
+        .find(level ? { userId, level } : { userId }, { sort: { score: -1 } })
         .toArray();
       return result as Score[];
     } catch (e) {
