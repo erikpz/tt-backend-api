@@ -6,6 +6,7 @@ import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
 import { ProgressModule } from './progress/progress.module';
 import { ScoreModule } from './score/score.module';
+import { AppRepository } from './repositories/app.repository';
 
 @Module({
   imports: [
@@ -16,6 +17,6 @@ import { ScoreModule } from './score/score.module';
     ScoreModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, AppRepository],
 })
 export class AppModule {}
