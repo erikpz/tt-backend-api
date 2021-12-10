@@ -13,9 +13,6 @@ export class ScoreRepository {
 
   async getBestScores(level: number): Promise<any> {
     try {
-      /*   const result = await this.collection
-        .find(level ? { level } : undefined, { sort: { score: -1 } })
-        .toArray(); */
       const result = await this.collection.aggregate([
         { $match: { level } },
         { $group: { _id: '$userId', score: { $max: '$score' } } },

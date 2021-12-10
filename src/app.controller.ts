@@ -14,15 +14,15 @@ export class AppController {
   deleteApp() {
     return this.appService.deleteAllCollections();
   }
-  @Delete('score')
+  @Delete('app/score')
   deleteScore() {
     return this.appService.deleteScoreCollection();
   }
-  @Delete('progress')
+  @Delete('app/progress')
   deleteProgress() {
     return this.appService.deleteProgressCollection();
   }
-  @Delete('users')
+  @Delete('app/users')
   deleteUsers() {
     return this.appService.deleteUsersCollection();
   }
